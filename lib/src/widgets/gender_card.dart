@@ -39,6 +39,7 @@ class GenderCard extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.0),
           ),
+          animationDuration: kThemeAnimationDuration,
           textColor: selected
               ? titleStyle.color
               : buttomTheme.colorScheme!.onSurface.withAlpha(100),

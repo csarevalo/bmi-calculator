@@ -66,8 +66,8 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
           ),
         ),
         const HeightSliderCard(
-          initValue: 110,
-          max: 225,
+          initValue: 165, //5ft 4in
+          max: 256, //8ft 4in
           min: 1,
           unit: 'cm',
         ),
