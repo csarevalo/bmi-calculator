@@ -6,14 +6,14 @@ class MeasurementCard extends StatefulWidget {
     required this.title,
     this.unit = '',
     required this.initValue,
-    required this.maxValue,
-    required this.minValue,
+    required this.max,
+    required this.min,
   });
   final String title;
   final String unit;
   final int initValue;
-  final int maxValue;
-  final int minValue;
+  final int max;
+  final int min;
 
   @override
   State<MeasurementCard> createState() => _MeasurementCardState();
@@ -81,7 +81,7 @@ class _MeasurementCardState extends State<MeasurementCard> {
                   IconButton.filledTonal(
                     onPressed: () {
                       setState(() {
-                        value--;
+                        if (value > widget.min) value--;
                       });
                     },
                     icon: const Icon(
@@ -92,7 +92,7 @@ class _MeasurementCardState extends State<MeasurementCard> {
                   IconButton.filledTonal(
                     onPressed: () {
                       setState(() {
-                        value++;
+                        if (value < widget.max) value++;
                       });
                     },
                     icon: const Icon(
