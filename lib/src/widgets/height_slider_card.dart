@@ -21,8 +21,6 @@ class HeightSliderCard extends StatefulWidget {
 class _HeightSliderCardState extends State<HeightSliderCard> {
   late double _sliderValue;
 
-  int get currentValue => _sliderValue.toInt();
-
   @override
   void initState() {
     super.initState();
@@ -71,17 +69,19 @@ class _HeightSliderCardState extends State<HeightSliderCard> {
             ),
             SliderTheme(
               data: SliderTheme.of(context).copyWith(
-                trackHeight: 3.0,
-                thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 14),
-                overlayShape: const RoundSliderOverlayShape(overlayRadius: 24),
-                // activeTrackColor: Colors.red[700],
-                // thumbColor: Colors.red[700]
-              ),
+                  trackHeight: 3.0,
+                  thumbShape:
+                      const RoundSliderThumbShape(enabledThumbRadius: 14),
+                  overlayShape:
+                      const RoundSliderOverlayShape(overlayRadius: 24),
+                  activeTrackColor: Colors.red[700],
+                  thumbColor: Colors.red[700]),
               child: Slider(
                   value: _sliderValue,
                   max: widget.max,
                   min: widget.min,
                   onChanged: (newVal) {
+                    // TODO: Update height in app provider
                     setState(() {
                       _sliderValue = newVal;
                     });

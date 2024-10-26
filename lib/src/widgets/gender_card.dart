@@ -31,8 +31,14 @@ class GenderCard extends StatelessWidget {
       flex: 15,
       child: Card(
         margin: const EdgeInsets.fromLTRB(8.0, 16.0, 8.0, 8.0),
+        color: selected
+            ? buttomTheme.colorScheme!.surfaceContainer
+            : buttomTheme.colorScheme!.surfaceContainer.withAlpha(160),
         child: MaterialButton(
           onPressed: selected ? null : onTap,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12.0),
+          ),
           textColor: selected
               ? titleStyle.color
               : buttomTheme.colorScheme!.onSurface.withAlpha(100),

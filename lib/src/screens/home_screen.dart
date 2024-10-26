@@ -32,6 +32,9 @@ class HomeScreenContent extends StatefulWidget {
 
 class _HomeScreenContentState extends State<HomeScreenContent> {
   Gender selectedGender = Gender.none;
+  double height = 150; //cm
+  int weight = 130; //lb
+  int age = 30; //years
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +67,7 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
         ),
         const HeightSliderCard(
           initValue: 110,
-          max: 200,
+          max: 225,
           min: 1,
           unit: 'cm',
         ),
