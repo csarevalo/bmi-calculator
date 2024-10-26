@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:bmi_calculator/src/providers/bmi_provider.dart';
 
 const IconData _maleIcon = FontAwesomeIcons.mars;
 const IconData _femaleIcon = FontAwesomeIcons.venus;
@@ -7,6 +10,27 @@ const IconData _femaleIcon = FontAwesomeIcons.venus;
 class GenderCard extends StatelessWidget {
   const GenderCard({
     super.key,
+    required this.gender,
+  });
+
+  final Gender gender;
+
+  @override
+  Widget build(BuildContext context) {
+    final bmiProvider = Provider.of<BmiProvider>(context, listen: false);
+    return Selector<BmiProvider, Gender>(
+      selector: (_, p) => p.gender,
+      builder: (_, g, __) => _GenderCard(
+        gender: gender,
+        selected: g == gender,
+        onTap: () => bmiProvider.updateGender(gender),
+      ),
+    );
+  }
+}
+
+class _GenderCard extends StatelessWidget {
+  const _GenderCard({
     required this.gender,
     this.onTap,
     this.selected = false,
