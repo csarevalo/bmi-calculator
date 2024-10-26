@@ -8,17 +8,15 @@ class MeasurementCard extends StatelessWidget {
     required this.value,
     required this.max,
     required this.min,
-    this.onAdd,
-    this.onRemove,
+    required this.onUpdateValue,
   });
-  
+
   final String title;
   final String unit;
   final int value;
   final int max;
   final int min;
-  final void Function()? onAdd;
-  final void Function()? onRemove;
+  final void Function(int) onUpdateValue;
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +67,8 @@ class MeasurementCard extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   IconButton.filledTonal(
-                    onPressed: value <= min ? null : onRemove,
+                    onPressed:
+                        value <= min ? null : () => onUpdateValue(value - 1),
                     // : () {
                     //     setState(() {
                     //       if (value > widget.min) value--;
@@ -81,7 +80,8 @@ class MeasurementCard extends StatelessWidget {
                   ),
                   const SizedBox(width: 16.0),
                   IconButton.filledTonal(
-                    onPressed: value >= max ? null : onAdd,
+                    onPressed:
+                        value >= max ? null : () => onUpdateValue(value + 1),
                     // : () {
                     //     setState(() {
                     //       if (value < widget.max) value++;

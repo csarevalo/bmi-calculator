@@ -1,10 +1,9 @@
 import 'package:bmi_calculator/src/constants/bmi_consts.dart';
-import 'package:bmi_calculator/src/providers/bmi_provider.dart';
+import 'package:bmi_calculator/src/widgets/age_measurement_card.dart';
 import 'package:bmi_calculator/src/widgets/gender_card.dart';
 import 'package:bmi_calculator/src/widgets/height_slider_card.dart';
-import 'package:bmi_calculator/src/widgets/measurement_card.dart';
+import 'package:bmi_calculator/src/widgets/weight_measurement_card.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({
@@ -31,9 +30,9 @@ class HomeScreenContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       children: [
-        const Expanded(
+        Expanded(
           child: Row(
             children: [
               GenderCard(gender: Gender.male),
@@ -42,7 +41,7 @@ class HomeScreenContent extends StatelessWidget {
             ],
           ),
         ),
-        const HeightSliderCard(
+        HeightSliderCard(
           initValue: 165, //5ft 4in
           max: kMaxHeight,
           min: kMinHeight,
@@ -51,26 +50,9 @@ class HomeScreenContent extends StatelessWidget {
         Expanded(
           child: Row(
             children: [
-              Selector<BmiProvider, int>(
-                selector: (_, p) => p.weight,
-                builder: (_, weight, __) => MeasurementCard(
-                  title: 'WEIGHT',
-                  unit: 'lb',
-                  value: weight,
-                  max: kMaxWeight,
-                  min: kMinWeight,
-                ),
-              ),
-              const Spacer(),
-              Selector<BmiProvider, int>(
-                selector: (_, p) => p.age,
-                builder: (_, age, __) => MeasurementCard(
-                  title: 'AGE',
-                  value: age,
-                  max: kMaxAge,
-                  min: kMinAge,
-                ),
-              ),
+              WeightMeasurementCard(),
+              Spacer(),
+              AgeMeasurementCard(),
             ],
           ),
         )
