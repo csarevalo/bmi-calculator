@@ -72,17 +72,18 @@ class HeightSliderCard extends StatelessWidget {
                   activeTrackColor: Colors.red[700],
                   thumbColor: Colors.red[700]),
               child: Selector<BmiProvider, double>(
-                  selector: (_, p) => p.height,
-                  builder: (_, height, __) {
-                    return Slider(
-                      value: height,
-                      max: max,
-                      min: min,
-                      onChanged: (newHeight) {
-                        bmiProvider.updateHeight(newHeight);
-                      },
-                    );
-                  }),
+                selector: (_, p) => p.height,
+                builder: (_, height, __) {
+                  return Slider(
+                    value: height,
+                    max: max,
+                    min: min,
+                    onChanged: (newHeight) {
+                      bmiProvider.updateHeight(newHeight);
+                    },
+                  );
+                },
+              ),
             )
           ],
         ),
