@@ -1,6 +1,8 @@
+import 'package:bmi_calculator/src/providers/bmi_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class HeightSliderCard extends StatefulWidget {
+class HeightSliderCard extends StatelessWidget {
   const HeightSliderCard({
     super.key,
     required this.initValue,
@@ -15,20 +17,8 @@ class HeightSliderCard extends StatefulWidget {
   final double min;
 
   @override
-  State<HeightSliderCard> createState() => _HeightSliderCardState();
-}
-
-class _HeightSliderCardState extends State<HeightSliderCard> {
-  late double _sliderValue;
-
-  @override
-  void initState() {
-    super.initState();
-    _sliderValue = widget.initValue;
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final bmiProvider = Provider.of<BmiProvider>(context, listen: false);
     final TextStyle titleStyle =
         Theme.of(context).textTheme.bodyLarge!.copyWith(
               fontWeight: FontWeight.lerp(
@@ -59,12 +49,17 @@ class _HeightSliderCardState extends State<HeightSliderCard> {
               crossAxisAlignment: CrossAxisAlignment.baseline,
               textBaseline: TextBaseline.alphabetic,
               children: [
-                Text(
-                  _sliderValue.toStringAsFixed(0),
-                  textAlign: TextAlign.center,
-                  style: numStyle,
+                Selector<BmiProvider, double>(
+                  selector: (_, p) => p.height,
+                  builder: (_, height, __) {
+                    return Text(
+                      height.toStringAsFixed(0),
+                      textAlign: TextAlign.center,
+                      style: numStyle,
+                    );
+                  },
                 ),
-                Text(widget.unit, style: titleStyle)
+                Text(unit, style: titleStyle)
               ],
             ),
             SliderTheme(
@@ -76,15 +71,17 @@ class _HeightSliderCardState extends State<HeightSliderCard> {
                       const RoundSliderOverlayShape(overlayRadius: 24),
                   activeTrackColor: Colors.red[700],
                   thumbColor: Colors.red[700]),
-              child: Slider(
-                  value: _sliderValue,
-                  max: widget.max,
-                  min: widget.min,
-                  onChanged: (newVal) {
-                    // TODO: Update height in app provider
-                    setState(() {
-                      _sliderValue = newVal;
-                    });
+              child: Selector<BmiProvider, double>(
+                  selector: (_, p) => p.height,
+                  builder: (_, height, __) {
+                    return Slider(
+                      value: height,
+                      max: max,
+                      min: min,
+                      onChanged: (newHeight) {
+                        bmiProvider.updateHeight(newHeight);
+                      },
+                    );
                   }),
             )
           ],
