@@ -1,7 +1,9 @@
+import 'package:bmi_calculator/src/providers/bmi_provider.dart';
 import 'package:bmi_calculator/src/widgets/gender_card.dart';
 import 'package:bmi_calculator/src/widgets/height_slider_card.dart';
 import 'package:bmi_calculator/src/widgets/measurement_card.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({
@@ -21,46 +23,39 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class HomeScreenContent extends StatefulWidget {
+class HomeScreenContent extends StatelessWidget {
   const HomeScreenContent({
     super.key,
   });
 
   @override
-  State<HomeScreenContent> createState() => _HomeScreenContentState();
-}
-
-class _HomeScreenContentState extends State<HomeScreenContent> {
-  Gender selectedGender = Gender.none;
-  double height = 150; //cm
-  int weight = 130; //lb
-  int age = 30; //years
-
-  @override
   Widget build(BuildContext context) {
+    final bmiProvider = Provider.of<BmiProvider>(context, listen: false);
     return Column(
       children: [
         Expanded(
           child: Row(
             children: [
-              GenderCard(
-                gender: Gender.male,
-                selected: selectedGender == Gender.male,
-                onTap: () {
-                  setState(() {
-                    selectedGender = Gender.male;
-                  });
-                },
+              Selector<BmiProvider, Gender>(
+                selector: (_, p) => p.gender,
+                builder: (_, gender, __) => GenderCard(
+                  gender: Gender.male,
+                  selected: gender == Gender.male,
+                  onTap: () {
+                    bmiProvider.updateGender(Gender.male);
+                  },
+                ),
               ),
               const Spacer(),
-              GenderCard(
-                gender: Gender.female,
-                selected: selectedGender == Gender.female,
-                onTap: () {
-                  setState(() {
-                    selectedGender = Gender.female;
-                  });
-                },
+              Selector<BmiProvider, Gender>(
+                selector: (_, p) => p.gender,
+                builder: (_, gender, __) => GenderCard(
+                  gender: Gender.female,
+                  selected: gender == Gender.female,
+                  onTap: () {
+                    bmiProvider.updateGender(Gender.female);
+                  },
+                ),
               ),
             ],
           ),
