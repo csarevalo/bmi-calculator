@@ -14,7 +14,7 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('BMI Calculator'),
         centerTitle: true,
-        elevation: 1.0,
+        elevation: 0.65,
       ),
       body: const HomeScreenContent(),
     );
