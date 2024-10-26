@@ -1,34 +1,24 @@
 import 'package:flutter/material.dart';
 
-class MeasurementCard extends StatefulWidget {
+class MeasurementCard extends StatelessWidget {
   const MeasurementCard({
     super.key,
     required this.title,
     this.unit = '',
-    required this.initValue,
+    required this.value,
     required this.max,
     required this.min,
+    this.onAdd,
+    this.onRemove,
   });
+  
   final String title;
   final String unit;
-  final int initValue;
+  final int value;
   final int max;
   final int min;
-
-  @override
-  State<MeasurementCard> createState() => _MeasurementCardState();
-}
-
-class _MeasurementCardState extends State<MeasurementCard> {
-  late int value;
-
-  int get currentValue => value;
-
-  @override
-  void initState() {
-    super.initState();
-    value = widget.initValue;
-  }
+  final void Function()? onAdd;
+  final void Function()? onRemove;
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +43,7 @@ class _MeasurementCardState extends State<MeasurementCard> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              widget.title,
+              title,
               textAlign: TextAlign.center,
               style: titleStyle,
             ),
@@ -68,7 +58,7 @@ class _MeasurementCardState extends State<MeasurementCard> {
                   style: numStyle,
                 ),
                 Text(
-                  widget.unit,
+                  unit,
                   style: titleStyle,
                 )
               ],
@@ -79,22 +69,24 @@ class _MeasurementCardState extends State<MeasurementCard> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   IconButton.filledTonal(
-                    onPressed: () {
-                      setState(() {
-                        if (value > widget.min) value--;
-                      });
-                    },
+                    onPressed: value <= min ? null : onRemove,
+                    // : () {
+                    //     setState(() {
+                    //       if (value > widget.min) value--;
+                    //     });
+                    //   },
                     icon: const Icon(
                       Icons.remove,
                     ),
                   ),
                   const SizedBox(width: 16.0),
                   IconButton.filledTonal(
-                    onPressed: () {
-                      setState(() {
-                        if (value < widget.max) value++;
-                      });
-                    },
+                    onPressed: value >= max ? null : onAdd,
+                    // : () {
+                    //     setState(() {
+                    //       if (value < widget.max) value++;
+                    //     });
+                    //   },
                     icon: const Icon(
                       Icons.add,
                     ),

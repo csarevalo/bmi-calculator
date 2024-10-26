@@ -1,7 +1,10 @@
+import 'package:bmi_calculator/src/constants/bmi_consts.dart';
+import 'package:bmi_calculator/src/providers/bmi_provider.dart';
 import 'package:bmi_calculator/src/widgets/gender_card.dart';
 import 'package:bmi_calculator/src/widgets/height_slider_card.dart';
 import 'package:bmi_calculator/src/widgets/measurement_card.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({
@@ -28,9 +31,9 @@ class HomeScreenContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       children: [
-        Expanded(
+        const Expanded(
           child: Row(
             children: [
               GenderCard(gender: Gender.male),
@@ -39,28 +42,34 @@ class HomeScreenContent extends StatelessWidget {
             ],
           ),
         ),
-        HeightSliderCard(
+        const HeightSliderCard(
           initValue: 165, //5ft 4in
-          max: 256, //8ft 4in
-          min: 1,
+          max: kMaxHeight,
+          min: kMinHeight,
           unit: 'cm',
         ),
         Expanded(
           child: Row(
             children: [
-              MeasurementCard(
-                title: 'WEIGHT',
-                unit: 'lb',
-                initValue: 130,
-                max: 500,
-                min: 1,
+              Selector<BmiProvider, int>(
+                selector: (_, p) => p.weight,
+                builder: (_, weight, __) => MeasurementCard(
+                  title: 'WEIGHT',
+                  unit: 'lb',
+                  value: weight,
+                  max: kMaxWeight,
+                  min: kMinWeight,
+                ),
               ),
-              Spacer(),
-              MeasurementCard(
-                title: 'AGE',
-                initValue: 30,
-                max: 130,
-                min: 1,
+              const Spacer(),
+              Selector<BmiProvider, int>(
+                selector: (_, p) => p.age,
+                builder: (_, age, __) => MeasurementCard(
+                  title: 'AGE',
+                  value: age,
+                  max: kMaxAge,
+                  min: kMinAge,
+                ),
               ),
             ],
           ),
