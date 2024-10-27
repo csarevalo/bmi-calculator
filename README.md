@@ -1,3 +1,3 @@
-# bmi_calculator
+# BMI Calculator
 
-A new Flutter project.
+A BMI Calculator developed using Flutter.
