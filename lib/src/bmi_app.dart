@@ -12,6 +12,7 @@ class BmiApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => BmiProvider(),
       child: MaterialApp(
+        title: 'BMI Calculator',
         theme: ThemeData.from(
           colorScheme: ColorScheme.fromSeed(
             seedColor: Colors.pink,
