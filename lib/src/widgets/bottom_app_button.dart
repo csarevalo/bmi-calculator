@@ -31,7 +31,7 @@ class BottomAppButton extends StatelessWidget {
           shape: const ContinuousRectangleBorder(),
           onPressed: onPressed,
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 8.0),
+            padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 12.0),
             child: Text(title, style: resultStyle),
           ),
         ),

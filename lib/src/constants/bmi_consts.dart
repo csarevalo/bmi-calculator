@@ -31,8 +31,8 @@ const int kInitWeight = 130;
 /// Max age is 130 years old.
 const int kMaxAge = 130;
 
-/// Min age is 1 year old.
-const int kMinAge = 1;
+/// Min age is 20 year old (a young adult).
+const int kMinAge = 20;
 
 /// Init age is 30-years-old.
 const int kInitAge = 30;

@@ -18,17 +18,27 @@ class CalcScreen extends StatelessWidget {
     final double height = kCmToM * bmiProvider.height; //m's
     final double bmi = weight / height / height;
     //DETERMINE RESULTS
-    final String results = getBmiResults(bmi);
+    final String results = _getBmiResults(bmi).text;
     //STYLES
     final TextTheme textTheme = Theme.of(context).textTheme;
+
+    final TextStyle resTitleStyle = textTheme.displayMedium!.copyWith(
+      // color: Theme.of(context).colorScheme.onPrimaryContainer,
+      fontSize: 42,
+    );
+
     final TextStyle resStyle = textTheme.bodyLarge!.copyWith(
       fontWeight: FontWeight.lerp(FontWeight.normal, FontWeight.bold, 0.5),
-      fontSize: 36,
+      fontSize: 28,
+      // color: Theme.of(context).colorScheme.tertiary,
+      color: Colors.green,
     );
+
     final TextStyle bigNumStyle = textTheme.displayMedium!.copyWith(
       fontWeight: FontWeight.bold,
       fontSize: 64,
     );
+
     return Scaffold(
       appBar: const BmiAppBar(),
       body: Column(
@@ -36,17 +46,15 @@ class CalcScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(16.0, 12.0, 8.0, 6.0),
+            padding: const EdgeInsets.fromLTRB(16.0, 16.0, 8.0, 8.0),
             child: Text(
               'Your Results',
               textAlign: TextAlign.left,
-              style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                    color: Theme.of(context).colorScheme.primary,
-                    fontSize: 42,
-                  ),
+              style: resTitleStyle,
             ),
           ),
           Expanded(
+            flex: 7,
             child: Card(
               margin: const EdgeInsets.all(16.0),
               child: Column(
@@ -57,10 +65,21 @@ class CalcScreen extends StatelessWidget {
                     bmi.toStringAsFixed(2),
                     style: bigNumStyle,
                   ),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 100.0),
+                    child: Text(
+                      'Obesity is on the rise. Please take care of yourself.',
+                      textAlign: TextAlign.justify,
+                      style: TextStyle(
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
           ),
+          const Spacer(),
           BottomAppButton(
             title: 'Re-Calculate'.toUpperCase(),
             onPressed: () => Navigator.pop(context),
@@ -71,24 +90,50 @@ class CalcScreen extends StatelessWidget {
   }
 }
 
-String getBmiResults(double bmi) {
-  final String res;
-  if (bmi < 16) {
-    res = 'Severe Thinness';
-  } else if (bmi < 17) {
-    res = 'Moderate Thinness';
-  } else if (bmi < 18.5) {
-    res = 'Mild Thinness';
-  } else if (bmi < 25) {
-    res = 'Normal';
-  } else if (bmi < 30) {
-    res = 'Overweight';
-  } else if (bmi < 35) {
-    res = 'Obese I';
-  } else if (bmi < 40) {
-    res = 'Obese II';
+_BmiForAdults _getBmiResults(double bmi) {
+  final _BmiForAdults res;
+  if (bmi < _BmiForAdults.severeThinness.maxBmi) {
+    res = _BmiForAdults.severeThinness;
+  } else if (bmi < _BmiForAdults.moderateThinness.maxBmi) {
+    res = _BmiForAdults.moderateThinness;
+  } else if (bmi < _BmiForAdults.mildThinness.maxBmi) {
+    res = _BmiForAdults.mildThinness;
+  } else if (bmi < _BmiForAdults.normal.maxBmi) {
+    res = _BmiForAdults.normal;
+  } else if (bmi < _BmiForAdults.overWeight.maxBmi) {
+    res = _BmiForAdults.overWeight;
+  } else if (bmi < _BmiForAdults.obeseI.maxBmi) {
+    res = _BmiForAdults.obeseI;
+  } else if (bmi < _BmiForAdults.obeseII.maxBmi) {
+    res = _BmiForAdults.obeseII;
   } else {
-    res = 'Obese III';
+    res = _BmiForAdults.obeseIII;
   }
   return res;
+}
+
+enum _BmiForAdults implements Comparable<_BmiForAdults> {
+  severeThinness(id: 0, text: 'Severe Thinness', maxBmi: 16, minBmi: 0),
+  moderateThinness(id: 1, text: 'Moderate Thinness', maxBmi: 17, minBmi: 16),
+  mildThinness(id: 2, text: 'Mild Thinness', maxBmi: 18.5, minBmi: 17),
+  normal(id: 3, text: 'Normal', maxBmi: 25, minBmi: 18.5),
+  overWeight(id: 4, text: 'Obese I', maxBmi: 30, minBmi: 25),
+  obeseI(id: 5, text: 'Obese I', maxBmi: 35, minBmi: 30),
+  obeseII(id: 6, text: 'Obese II', maxBmi: 40, minBmi: 35),
+  obeseIII(id: 8, text: 'Obese III', maxBmi: double.infinity, minBmi: 40);
+
+  const _BmiForAdults({
+    required this.id,
+    required this.text,
+    required this.maxBmi,
+    required this.minBmi,
+  });
+
+  final int id;
+  final String text;
+  final double maxBmi;
+  final double minBmi;
+
+  @override
+  int compareTo(_BmiForAdults other) => id - other.id;
 }
