@@ -57,7 +57,7 @@ class HomeScreenContent extends StatelessWidget {
           ),
         ),
         BottomAppButton(
-          title: 'Calculate',
+          title: 'Calculate'.toUpperCase(),
           onPressed: () => Navigator.pushNamed(context, '/calc'),
         )
       ],

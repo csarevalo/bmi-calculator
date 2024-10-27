@@ -30,7 +30,7 @@ class CalcScreen extends StatelessWidget {
             ),
           ),
           BottomAppButton(
-            title: 'Re-Calculate',
+            title: 'Re-Calculate'.toUpperCase(),
             onPressed: () => Navigator.pop(context),
           ),
         ],
