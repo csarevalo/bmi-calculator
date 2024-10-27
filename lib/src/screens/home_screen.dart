@@ -1,5 +1,6 @@
 import 'package:bmi_calculator/src/constants/bmi_consts.dart';
 import 'package:bmi_calculator/src/widgets/age_measurement_card.dart';
+import 'package:bmi_calculator/src/widgets/bmi_app_bar.dart';
 import 'package:bmi_calculator/src/widgets/gender_card.dart';
 import 'package:bmi_calculator/src/widgets/height_slider_card.dart';
 import 'package:bmi_calculator/src/widgets/weight_measurement_card.dart';
@@ -12,13 +13,9 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('BMI Calculator'),
-        centerTitle: true,
-        elevation: 0.65,
-      ),
-      body: const SafeArea(
+    return const Scaffold(
+      appBar: BmiAppBar(),
+      body: SafeArea(
         child: HomeScreenContent(),
       ),
     );
