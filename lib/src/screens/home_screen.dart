@@ -18,7 +18,9 @@ class HomeScreen extends StatelessWidget {
         centerTitle: true,
         elevation: 0.65,
       ),
-      body: const HomeScreenContent(),
+      body: const SafeArea(
+        child: HomeScreenContent(),
+      ),
     );
   }
 }
@@ -30,9 +32,17 @@ class HomeScreenContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    final TextStyle titleStyle =
+        Theme.of(context).textTheme.bodyLarge!.copyWith(
+            fontWeight: FontWeight.lerp(
+              FontWeight.normal,
+              FontWeight.bold,
+              0.5,
+            ),
+            fontSize: 25);
+    return Column(
       children: [
-        Expanded(
+        const Expanded(
           child: Row(
             children: [
               GenderCard(gender: Gender.male),
@@ -41,13 +51,13 @@ class HomeScreenContent extends StatelessWidget {
             ],
           ),
         ),
-        HeightSliderCard(
+        const HeightSliderCard(
           initValue: 165, //5ft 4in
           max: kMaxHeight,
           min: kMinHeight,
           unit: 'cm',
         ),
-        Expanded(
+        const Expanded(
           child: Row(
             children: [
               WeightMeasurementCard(),
@@ -55,7 +65,21 @@ class HomeScreenContent extends StatelessWidget {
               AgeMeasurementCard(),
             ],
           ),
-        )
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            MaterialButton(
+              onPressed: () {},
+              color: Colors.red[900],
+              shape: const ContinuousRectangleBorder(),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 8.0),
+                child: Text('Calculate', style: titleStyle),
+              ),
+            ),
+          ],
+        ),
       ],
     );
   }
