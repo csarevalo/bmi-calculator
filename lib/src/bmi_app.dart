@@ -1,4 +1,5 @@
 import 'package:bmi_calculator/src/providers/bmi_provider.dart';
+import 'package:bmi_calculator/src/screens/calc_screen.dart';
 import 'package:bmi_calculator/src/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,7 +18,12 @@ class BmiApp extends StatelessWidget {
             brightness: Brightness.dark,
           ),
         ),
-        home: const HomeScreen(),
+
+        initialRoute: '/', // home: const HomeScreen(),
+        routes: {
+          '/': (BuildContext ctx) => const HomeScreen(),
+          '/calc': (BuildContext ctx) => const CalcScreen(),
+        },
       ),
     );
   }

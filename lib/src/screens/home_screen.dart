@@ -1,6 +1,7 @@
 import 'package:bmi_calculator/src/constants/bmi_consts.dart';
 import 'package:bmi_calculator/src/widgets/age_measurement_card.dart';
 import 'package:bmi_calculator/src/widgets/bmi_app_bar.dart';
+import 'package:bmi_calculator/src/widgets/bottom_app_button.dart';
 import 'package:bmi_calculator/src/widgets/gender_card.dart';
 import 'package:bmi_calculator/src/widgets/height_slider_card.dart';
 import 'package:bmi_calculator/src/widgets/weight_measurement_card.dart';
@@ -29,14 +30,6 @@ class HomeScreenContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextStyle titleStyle =
-        Theme.of(context).textTheme.bodyLarge!.copyWith(
-            fontWeight: FontWeight.lerp(
-              FontWeight.normal,
-              FontWeight.bold,
-              0.5,
-            ),
-            fontSize: 25);
     return Column(
       children: [
         const Expanded(
@@ -63,20 +56,10 @@ class HomeScreenContent extends StatelessWidget {
             ],
           ),
         ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            MaterialButton(
-              onPressed: () {},
-              color: Colors.red[900],
-              shape: const ContinuousRectangleBorder(),
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 8.0),
-                child: Text('Calculate', style: titleStyle),
-              ),
-            ),
-          ],
-        ),
+        BottomAppButton(
+          title: 'Calculate',
+          onPressed: () => Navigator.pushNamed(context, '/calc'),
+        )
       ],
     );
   }
