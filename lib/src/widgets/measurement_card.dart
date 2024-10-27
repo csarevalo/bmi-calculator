@@ -20,18 +20,17 @@ class MeasurementCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextStyle titleStyle =
-        Theme.of(context).textTheme.bodyLarge!.copyWith(
-              fontWeight: FontWeight.lerp(
-                FontWeight.normal,
-                FontWeight.bold,
-                0.5,
-              ),
-            );
-    final TextStyle numStyle =
-        Theme.of(context).textTheme.displayMedium!.copyWith(
-              fontWeight: FontWeight.bold,
-            );
+    final TextTheme textTheme = Theme.of(context).textTheme;
+    final TextStyle titleStyle = textTheme.bodyLarge!.copyWith(
+      fontWeight: FontWeight.lerp(
+        FontWeight.normal,
+        FontWeight.bold,
+        0.5,
+      ),
+    );
+    final TextStyle numStyle = textTheme.displayMedium!.copyWith(
+      fontWeight: FontWeight.bold,
+    );
     return Expanded(
       flex: 15,
       child: Card(

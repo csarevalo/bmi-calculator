@@ -12,15 +12,16 @@ class BottomAppButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final TextStyle resultStyle =
-        Theme.of(context).textTheme.bodyLarge!.copyWith(
-              fontWeight: FontWeight.lerp(
-                FontWeight.normal,
-                FontWeight.bold,
-                0.5,
-              ),
-              fontSize: 25,
-            );
+
+    final TextTheme textTheme = Theme.of(context).textTheme;
+    final TextStyle resultStyle = textTheme.bodyLarge!.copyWith(
+      fontWeight: FontWeight.lerp(
+        FontWeight.normal,
+        FontWeight.bold,
+        0.5,
+      ),
+      fontSize: 25,
+    );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [

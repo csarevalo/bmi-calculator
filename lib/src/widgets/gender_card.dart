@@ -42,14 +42,15 @@ class _GenderCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final String title = gender.toString().split('.')[1].toUpperCase();
-    final TextStyle titleStyle =
-        Theme.of(context).textTheme.bodyLarge!.copyWith(
-              fontWeight: FontWeight.lerp(
-                FontWeight.normal,
-                FontWeight.bold,
-                0.5,
-              ),
-            );
+
+    final TextTheme textTheme = Theme.of(context).textTheme;
+    final TextStyle titleStyle = textTheme.bodyLarge!.copyWith(
+      fontWeight: FontWeight.lerp(
+        FontWeight.normal,
+        FontWeight.bold,
+        0.5,
+      ),
+    );
     final ButtonThemeData buttomTheme = Theme.of(context).buttonTheme;
     return Expanded(
       flex: 15,
